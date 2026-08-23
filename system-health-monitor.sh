@@ -6,6 +6,7 @@ source ./lib/cpu.sh
 
 source ./lib/memory.sh
 
+source ./lib/disk.sh
 
 HOSTNAME=$(hostname)
 CURRENT_USER=$(whoami)
@@ -15,6 +16,8 @@ UPTIME=$(uptime -p)
 
 CPU_USAGE=$(get_cpu_usage)
 MEM_USAGE=$(get_memory_usage)
+DISK_USAGE=$(get_disk_usage)
+
 
 echo "========================================"
 echo "         SYSTEM HEALTH MONITOR"
@@ -27,5 +30,7 @@ echo "Kernel            : $KERNEL"
 echo "Uptime            : $UPTIME"
 echo "CPU Usage         : $CPU_USAGE%"
 echo "MEMORY USAGE      : $MEM_USAGE"
+echo "DISK USAGE        : $DISK_USAGE"
+
 
 echo "========================================"
