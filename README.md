@@ -16,7 +16,7 @@ The final application is planned to monitor the following areas:
 |---|---|
 | System Information | ✅ Completed |
 | CPU Monitoring | ✅ Completed |
-| Memory Monitoring | 🔄 Next |
+| Memory Monitoring | ✅ Completed |
 | Disk Monitoring | ⏳ Planned |
 | Process Monitoring | ⏳ Planned |
 | Filesystem Monitoring | ⏳ Planned |
