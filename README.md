@@ -20,8 +20,8 @@ The final application is planned to monitor the following areas:
 | Disk Monitoring | ✅ Completed |
 | Process Monitoring | ✅ Completed |
 | Filesystem Monitoring | ✅ Completed |
-| Health Thresholds | ⏳ Planned |
-| Logging | ⏳ Planned |
+| Health Thresholds | ✅ Completed |
+| Logging | ✅ Completed |
 | Cron Scheduling | ⏳ Planned |
 | Alerting | ⏳ Planned |
 | Docker Integration | ⏳ Planned |
