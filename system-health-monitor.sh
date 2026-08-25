@@ -10,6 +10,8 @@ source ./lib/disk.sh
 
 source ./lib/process.sh
 
+source ./lib/filesystem.sh
+
 HOSTNAME=$(hostname)
 CURRENT_USER=$(whoami)
 OS=$(grep '^PRETTY_NAME=' /etc/os-release | cut -d '"' -f 2)
@@ -22,7 +24,7 @@ DISK_USAGE=$(get_disk_usage)
 PROCESS_COUNT=$(get_process_count)
 TOP_CPU_PROCESS=$(get_top_cpu_process)
 TOP_MEMORY_PROCESS=$(get_top_memory_process)
-
+FILESYSTEM_STATUS=$(get_filesystem_status)
 
 echo "========================================"
 echo "         SYSTEM HEALTH MONITOR"
@@ -39,5 +41,8 @@ echo "DISK USAGE        : $DISK_USAGE"
 echo "PROCESS COUNT     : $PROCESS_COUNT"
 echo "TOP CPU PROCESS   : $TOP_CPU_PROCESS"
 echo "TOP MEMORY PROCESS: $TOP_MEMORY_PROCESS"
+
+echo "FILESYSTEM MONITOR"
+echo "$FILESYSTEM_STATUS"
 
 echo "========================================"
