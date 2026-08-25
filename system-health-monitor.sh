@@ -68,4 +68,7 @@ echo "TOP MEMORY PROCESS: $TOP_MEMORY_PROCESS"
 echo "FILESYSTEM MONITOR"
 echo "$FILESYSTEM_STATUS"
 
+TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+echo "$TIMESTAMP | CPU=$CPU_USAGE% | MEMORY=$MEM_USAGE | DISK=$DISK_USAGE | FILESYSTEM=$FILESYSTEM_HEALTH | OVERALL=$OVERALL_HEALTH" >> logs/system-health.log
+
 echo "========================================"
