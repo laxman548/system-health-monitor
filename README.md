@@ -22,7 +22,7 @@ The final application is planned to monitor the following areas:
 | Filesystem Monitoring | ✅ Completed |
 | Health Thresholds | ✅ Completed |
 | Logging | ✅ Completed |
-| Cron Scheduling | ⏳ Planned |
+| Cron Scheduling | ✅ Completed |
 | Alerting | ⏳ Planned |
 | Docker Integration | ⏳ Planned |
 | Jenkins CI/CD | ⏳ Planned |
