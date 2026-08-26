@@ -1,5 +1,9 @@
 # 🖥️ Linux System Health Monitor
 
+[![Bash Shell](https://shields.io)](https://gnu.org)
+[![Linux](https://shields.io)](https://ubuntu.com)
+[![License: MIT](https://shields.io)](https://opensource.org)
+
 A lightweight, modular Bash-based shell utility developed to collect, monitor, and report key Linux system health metrics. Built as part of a DevOps engineering workflow, this utility interacts natively with the Linux kernel via the `/proc` filesystem and core system utilities.
 
 The application is built incrementally—initially verifying manual Linux administrative commands before scripting, testing, and modularizing them.
@@ -87,12 +91,12 @@ TOP CPU PROCESS   : root 98 0.0 /usr/lib/systemd/systemd-udevd
 TOP MEMORY PROCESS: root 210 0.2 /usr/bin/python3
 
 FILESYSTEM MONITOR
-Filesystem: C:\
+Filesystem: /dev/sdc
 Usage: 81%
 Mount: /mnt/c
 Status: WARNING
 ----------------
-Filesystem: D:\
+Filesystem: /dev/sdd
 Usage: 12%
 Mount: /mnt/d
 Status: OK
@@ -128,7 +132,7 @@ To run this health monitor automatically every hour and record logs, add it to y
    ```bash
    crontab -e
    ```
-2. Paste the following configuration rule at the bottom of the file (ensure to use your absolute path):
+2. Paste the following configuration rule at the bottom of the file (replace with your true absolute directory path):
    ```text
    0 * * * * cd /absolute/path/to/system-health-monitor && ./system-health-monitor.sh
    ```
@@ -152,14 +156,14 @@ The monitoring engine evaluates resources across three severity layers: `OK`, `W
 - **90% and above** → `CRITICAL`
 
 ### 🛡️ Overall Health Evaluation
-Overall health dynamically cascades based on the highest resource severity detected across components (`CRITICAL` > `WARNING` > `OK`):
+Overall health dynamically cascades based on the highest resource severity detected across individual components (`CRITICAL` > `WARNING` > `OK`):
 
 ```text
-  CPU Usage    → OK
-  Memory Usage → OK
-  Disk Capacity→ OK
-  Filesystem   → WARNING
-                 ↓
+  CPU Usage     → OK
+  Memory Usage  → OK
+  Disk Capacity → OK
+  Filesystem    → WARNING
+                  ↓
   OVERALL STATUS = WARNING
 ```
 *Note: If even a single monitored component changes state to `CRITICAL`, the system overall health state escalates to `CRITICAL` immediately.*
