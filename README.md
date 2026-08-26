@@ -1,120 +1,74 @@
-🖥️ Linux System Health Monitor
+# 🖥️ Linux System Health Monitor
 
-A lightweight, modular Bash-based shell utility developed to collect, monitor, evaluate, and report key Linux system health metrics. Built as part of a DevOps engineering workflow, this utility uses native Linux system utilities and interfaces to provide real-time system health information.
+A lightweight, modular Bash-based shell utility developed to collect, monitor, and report key Linux system health metrics. Built as part of a DevOps engineering workflow, this utility interacts natively with the Linux kernel via the `/proc` filesystem and core system utilities.
 
-The application is built incrementally by first verifying Linux administrative commands manually, then scripting, testing, modularizing, and integrating them into a single monitoring workflow.
+The application is built incrementally—initially verifying manual Linux administrative commands before scripting, testing, and modularizing them.
 
-📌 Project Architecture & Progress
+---
 
-The monitor tracks system components individually using modular scripts located in the lib/ directory.
+## 📌 Project Architecture & Progress
 
-Monitoring Module	Status	Core Tool / Source
-System Information	✅ Completed	hostname, whoami, /etc/os-release, uname, uptime
-CPU Monitoring	✅ Completed	/proc/stat, awk
-Memory Monitoring	✅ Completed	/proc/meminfo, awk
-Disk Monitoring	✅ Completed	df -h
-Process Monitoring	✅ Completed	ps aux
-Filesystem Monitoring	✅ Completed	df -h, grep, awk
-Health Thresholds	✅ Completed	Conditional Bash logic and awk
-Logging Engine	✅ Completed	logs/system-health.log
-Cron Scheduling	✅ Completed	crontab
-Alerting System	⏳ Planned	Email notifications / Slack Webhooks
-Docker Integration	⏳ Planned	Container resource tracking
-Jenkins CI/CD	⏳ Planned	Automated deployment pipeline
-✨ Features
-🖥️ System Information — Displays hostname, user, operating system, kernel, and uptime.
-⚙️ CPU Monitoring — Tracks CPU usage and evaluates its health status.
-🧠 Memory Monitoring — Tracks memory usage and evaluates thresholds.
-💾 Disk Monitoring — Tracks disk usage.
-🔄 Process Monitoring — Displays process count and top CPU and memory-consuming processes.
-📁 Filesystem Monitoring — Monitors mounted Windows filesystems such as C: and D: under WSL2.
-🩺 Health Thresholds — Classifies metrics as OK, WARNING, or CRITICAL.
-📊 Overall Health — Combines individual component statuses into one system-wide health status.
-📝 Logging — Records timestamped monitoring results in logs/system-health.log.
-⏰ Cron Scheduling — Supports automated periodic execution through cron.
-🧩 Modular Architecture — Separates monitoring responsibilities into reusable Bash modules.
-🧰 Tech Stack & Tools
-Operating System: Ubuntu 24.04 LTS via WSL2
-Scripting Language: GNU Bash
-Data Processing: awk, grep, sed, cut
-System Utilities: df, ps, hostname, whoami, uname, uptime
-System Interface: Linux /proc filesystem where applicable
-Scheduling: Cron / crontab
-Version Control: Git
-Repository Hosting: GitHub
-🛠️ Installation & Setup
+The monitor tracks system components individually using modular scripts located in the `lib/` directory.
 
-Follow these steps to clone, configure, and run the health monitor on a Linux environment.
+| Monitoring Module | Status | Core Tool / Source |
+| :--- | :---: | :--- |
+| **System Information** | ✅ Completed | `/proc/version`, `hostnamectl` |
+| **CPU Monitoring** | ✅ Completed | `/proc/stat`, `top` |
+| **Memory Monitoring** | ✅ Completed | `/proc/meminfo`, `free` |
+| **Disk Monitoring** | ✅ Completed | `df -h` |
+| **Process Monitoring** | ✅ Completed | `ps aux` |
+| **Filesystem Monitoring**| ✅ Completed | `stat`, `find` |
+| **Health Thresholds** | ✅ Completed | Conditional Bash logic |
+| **Logging Engine** | ✅ Completed | Written safely to `logs/` directory |
+| **Cron Scheduling** | ✅ Completed | `crontab` automated routines |
+| **Alerting System** | ⏳ Planned | Email notifications / Slack Webhooks |
+| **Docker Integration** | ⏳ Planned | Container resource tracking |
+| **Jenkins CI/CD** | ⏳ Planned | Automated deployment pipeline |
 
-1. Prerequisites
+---
 
-Ensure the following tools are available:
+## 🧰 Tech Stack & Tools
 
-Ubuntu 20.04+ or another Linux distribution
-Bash 4.0+
-Git 2.0+
-awk
-grep
-sed
-cut
-df
-ps
-Cron for scheduled monitoring
+- **Operating System:** Ubuntu 24.04 LTS (via WSL2)
+- **Scripting Language:** GNU Bash
+- **Data Parsers:** `awk`, `grep`, `cut`, `sed`
+- **Core Interface:** Linux `/proc` pseudo-filesystem
+- **Version Control:** Git & GitHub
 
-For WSL2-based Windows filesystem monitoring:
+---
 
-Windows Subsystem for Linux 2
-Ubuntu running under WSL2
+## 🛠️ Installation & Setup
 
-Check the installed versions:
+Follow these steps to clone, configure, and execute the health monitor on your local Linux environment.
 
-bash --version
-git --version
-awk --version
-2. Clone the Repository
+### 1. Prerequisites
+Ensure you are running a Linux distribution (such as Ubuntu) with standard shell utilities installed.
+
+### 2. Clone the Repository
+```bash
 git clone https://github.com/laxman548/system-health-monitor.git
 cd system-health-monitor
-3. Adjust Permissions
+```
 
-Make the main script executable:
-
+### 3. Adjust Permissions
+Make the main entry script and all auxiliary library files executable:
+```bash
 chmod +x system-health-monitor.sh
-
-Make the library scripts executable:
-
 chmod +x lib/*.sh
-4. Create the Log Directory
-mkdir -p logs
-5. Verify the Project Structure
-ls -la
+```
 
-Expected structure:
+---
 
-system-health-monitor/
-├── lib/
-│   ├── cpu.sh
-│   ├── disk.sh
-│   ├── filesystem.sh
-│   ├── health.sh
-│   ├── memory.sh
-│   └── process.sh
-├── logs/
-│   └── system-health.log
-├── README.md
-└── system-health-monitor.sh
-6. Environment Variables
+## 💻 Usage
 
-The project does not currently require environment variables, API keys, or external credentials.
-
-💻 Usage
-Run the System Health Monitor
-
-From the project directory:
-
+### Run the System Health Monitor
+From the project directory, run the master script manually:
+```bash
 ./system-health-monitor.sh
+```
 
-Example output:
-
+**Example output:**
+```text
 ========================================
          SYSTEM HEALTH MONITOR
 ========================================
@@ -131,6 +85,7 @@ OVERALL HEALTH    : WARNING
 PROCESS COUNT     : 28
 TOP CPU PROCESS   : root 98 0.0 /usr/lib/systemd/systemd-udevd
 TOP MEMORY PROCESS: root 210 0.2 /usr/bin/python3
+
 FILESYSTEM MONITOR
 Filesystem: C:\
 Usage: 81%
@@ -143,120 +98,96 @@ Mount: /mnt/d
 Status: OK
 ----------------
 ========================================
-View the Health Log
+```
 
-Display the complete log:
+### View the Health Log
+Every execution appends metrics directly into the persistent log subsystem.
 
-cat logs/system-health.log
+- **Display the complete log:**
+  ```bash
+  cat logs/system-health.log
+  ```
+- **View only the latest five entries:**
+  ```bash
+  tail -n 5 logs/system-health.log
+  ```
+- **Follow the log stream in real time:**
+  ```bash
+  tail -f logs/system-health.log
+  ```
 
-View only the latest five entries:
-
-tail -n 5 logs/system-health.log
-
-Follow the log in real time:
-
-tail -f logs/system-health.log
-
-Example log entry:
-
+**Example log entry format:**
+```text
 2026-08-26 12:45:05 | CPU=0.08% | MEMORY=6.51% | DISK=1% | FILESYSTEM=WARNING | OVERALL=WARNING
-🩺 Health Status Rules
+```
 
-The monitor uses three health levels:
+### Automate Monitoring via Cron
+To run this health monitor automatically every hour and record logs, add it to your user crontab.
 
-OK
-WARNING
-CRITICAL
-CPU, Memory, and Disk
-Below 70%      → OK
-70% - 89.99%   → WARNING
-90% and above  → CRITICAL
-Filesystem
-Below 80%      → OK
-80% - 89.99%   → WARNING
-90% and above  → CRITICAL
-Overall Health
+1. Open your crontab editor:
+   ```bash
+   crontab -e
+   ```
+2. Paste the following configuration rule at the bottom of the file (ensure to use your absolute path):
+   ```text
+   0 * * * * cd /absolute/path/to/system-health-monitor && ./system-health-monitor.sh
+   ```
 
-The overall health follows the highest severity:
+---
 
-CRITICAL > WARNING > OK
+## 🩺 Health Status Rules
 
-For example:
+The monitoring engine evaluates resources across three severity layers: `OK`, `WARNING`, and `CRITICAL`.
 
-CPU        → OK
-Memory     → OK
-Disk       → OK
-Filesystem → WARNING
+### 📊 Resource Evaluation Metrics
+
+#### 🚀 CPU, Memory, and Disk
+- **Below 70%** → `OK`
+- **70% - 89.99%** → `WARNING`
+- **90% and above** → `CRITICAL`
+
+#### 💾 Filesystem Capacity
+- **Below 80%** → `OK`
+- **80% - 89.99%** → `WARNING`
+- **90% and above** → `CRITICAL`
+
+### 🛡️ Overall Health Evaluation
+Overall health dynamically cascades based on the highest resource severity detected across components (`CRITICAL` > `WARNING` > `OK`):
+
+```text
+  CPU Usage    → OK
+  Memory Usage → OK
+  Disk Capacity→ OK
+  Filesystem   → WARNING
                  ↓
-Overall    → WARNING
+  OVERALL STATUS = WARNING
+```
+*Note: If even a single monitored component changes state to `CRITICAL`, the system overall health state escalates to `CRITICAL` immediately.*
 
-If any component becomes CRITICAL, the overall health becomes CRITICAL.
+---
 
-⏰ Automate Monitoring via Cron
+## 📂 Directory Structure
 
-The monitor can run automatically using cron.
-
-1. Open the crontab editor
-crontab -e
-2. Run the monitor every hour
-
-Add the following entry:
-
-0 * * * * /absolute/path/to/system-health-monitor/system-health-monitor.sh
-
-Replace /absolute/path/to/ with the actual location of the project.
-
-For example:
-
-0 * * * * /home/laxman/projects/system-health-monitor/system-health-monitor.sh
-3. Verify the Cron Job
-crontab -l
-
-Cron will execute the monitor automatically according to the configured schedule, while the script continues to append monitoring results to:
-
-logs/system-health.log
-📂 Directory Structure
+```text
 system-health-monitor/
-├── lib/
-│   ├── cpu.sh                 # CPU monitoring
-│   ├── disk.sh                # Disk monitoring
-│   ├── filesystem.sh          # Filesystem monitoring
-│   ├── health.sh              # Health threshold evaluation
-│   ├── memory.sh              # Memory monitoring
-│   └── process.sh             # Process monitoring
-├── logs/
-│   └── system-health.log      # Historical monitoring logs
-├── README.md                  # Project documentation
-└── system-health-monitor.sh   # Main monitoring entry point
-Module Responsibilities
-cpu.sh
-    → CPU usage monitoring
+├── lib/                      # Modular script components (CPU, Memory, Disk, etc.)
+├── logs/                     # Historical system performance log files
+│   └── system-health.log     # Target file for streaming log entries
+├── README.md                 # Project documentation and specifications
+└── system-health-monitor.sh  # Master execution engine entry point
+```
 
-memory.sh
-    → Memory usage monitoring
+---
 
-disk.sh
-    → Disk usage monitoring
+## 🚀 Future Enhancements
 
-process.sh
-    → Process count and top processes
+The following operational milestones are in active development planning:
+- 🚨 **Alerting System** — Send automated notifications (e.g., Slack Webhooks or Email) when system statuses cross into `WARNING` or `CRITICAL` levels.
+- 🐳 **Docker Integration** — Track isolated container execution metrics along with host-level container resource usage.
+- 🔄 **Jenkins CI/CD** — Enforce validation linting checks and test automation suites through configured declarative pipelines.
+- 📊 **Enhanced Monitoring** — Scale up internal collection capabilities to include tracking network socket limits and open file descriptors.
 
-filesystem.sh
-    → Filesystem monitoring and filesystem health
+---
 
-health.sh
-    → Individual and overall health evaluation
-
-system-health-monitor.sh
-    → Main monitoring workflow
-🚀 Future Enhancements
-
-The following features are planned:
-
-🚨 Alerting System — Send notifications when the system reaches WARNING or CRITICAL status.
-🐳 Docker Integration — Monitor Docker containers and container resource usage.
-🔄 Jenkins CI/CD — Automate testing and deployment through a Jenkins pipeline.
-📊 Enhanced Monitoring — Expand metrics and reporting capabilities.
-📄 License
-
-This project is open-source and available under the MIT License.
+## 📄 License
+This project is open-source and available under the [MIT License](LICENSE).
